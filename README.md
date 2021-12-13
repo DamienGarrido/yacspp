@@ -3,14 +3,14 @@
 ## Installation
 
 ```bash
-npm install --save-dev @dgarrido/yacspp
+npm install --save-dev @damien.garrido/yacspp
 ```
 
 ## Usage
 
 ```javascript
 #!/usr/bin/env node
-const { ContentSecurityPolicyParser } = require('@dgarrido/yacspp');
+const { ContentSecurityPolicyParser } = require('@damien.garrido/yacspp');
 
 const header = "default-src 'self'; base-uri 'self'; block-all-mixed-content; font-src 'self' https: data:; frame-ancestors 'self'; img-src 'self' data: www.example.com; object-src 'none'; script-src 'self' 'sha256-2yQBTLGLI1sDcBILfj/o6b5ufMv6CEwPYOk3RZI/WjE=' 'sha256-GeDavzSZ8O71Jggf/pQkKbt52dfZkrdNMQ3e+Ox+AkI='; script-src-attr 'none'; style-src 'self' https: 'sha256-pyVPiLlnqL9OWVoJPs/E6VVF5hBecRzM2gBiarnaqAo='; upgrade-insecure-requests;";
 
