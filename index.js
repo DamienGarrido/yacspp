@@ -1,3 +1,11 @@
+const filterValues = (array) => {
+  if (!(array instanceof Array))
+    return array;
+  return array.filter(function (value) {
+    return typeof (value) === 'string' && value.length > 0;
+  });
+}
+
 class ContentSecurityPolicyParser {
   constructor(policyString = null) {
     this.directives_regexp = "([a-z-]*)(?: *(.*?)); *";
@@ -73,9 +81,7 @@ class ContentSecurityPolicyParser {
       this.directives[directive] = [sources];
       return;
     }
-    sources = sources.filter(function (value, index, arr) {
-      return typeof(value) === 'string' && value.length > 0;
-    });
+    sources = filterValues(sources);
     if (sources.length === 0) {
       this.directives[directive] = null;
       return;
@@ -88,17 +94,19 @@ class ContentSecurityPolicyParser {
       throw TypeError(`directive: ${directive}`);
     }
     if (!this.directives.hasOwnProperty(directive)) {
-      if (!sources) {
-        this.directives[directive] = null;
-        return;
-      } else {
-        this.directives[directive] = [];
-      }
-      if (sources instanceof Array) {
-        this.directives[directive].push(...sources);
-      } else {
-        this.directives[directive].push(sources);
-      }
+      this.directives[directive] = null;
+    }
+    sources = filterValues(sources);
+    if (!sources || (sources instanceof Array && sources.length === 0)) {
+      return;
+    }
+    if (this.directives[directive] === null) {
+      this.directives[directive] = [];
+    }
+    if (sources instanceof Array) {
+      this.directives[directive].push(...sources);
+    } else {
+      this.directives[directive].push(sources);
     }
   }
 

@@ -99,7 +99,7 @@ describe('ContentSecurityPolicyParser', () => {
     const policy = new ContentSecurityPolicyParser();
     const directive = 'my-src';
     const sources = [];
-    policy.set(directive, sources);
+    policy.add_source(directive, sources);
     expect(policy.get(directive)).toStrictEqual(null);
   });
 
@@ -107,16 +107,18 @@ describe('ContentSecurityPolicyParser', () => {
     const policy = new ContentSecurityPolicyParser();
     const directive = 'my-src';
     const sources = ["'self'"];
-    policy.set(directive, sources);
+    policy.add_source(directive, sources);
     expect(policy.get(directive)).toStrictEqual(sources);
   });
 
   it('after add_source(directive, source_as_string), get(directive) should return expected sources', () => {
     const policy = new ContentSecurityPolicyParser();
     const directive = 'my-src';
-    const sources = "'self'";
-    policy.set(directive, sources);
-    expect(policy.get(directive)).toStrictEqual([sources]);
+    const source_1 = "'self'";
+    const source_2 = "data:";
+    policy.add_source(directive, source_1);
+    policy.add_source(directive, source_2);
+    expect(policy.get(directive)).toStrictEqual([source_1, source_2]);
   });
 
   it('remove_source() should throw TypeError', () => {
