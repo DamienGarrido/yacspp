@@ -40,6 +40,9 @@ class ContentSecurityPolicyParser {
   }
 
   get(directive) {
+    if (!directive) {
+      throw TypeError(`directive: ${directive}`);
+    }
     if (!this.directives.hasOwnProperty(directive)) {
       return null;
     }
@@ -49,6 +52,9 @@ class ContentSecurityPolicyParser {
   }
 
   remove(directive) {
+    if (!directive) {
+      throw TypeError(`directive: ${directive}`);
+    }
     if (!this.directives.hasOwnProperty(directive)) {
       return;
     }
@@ -56,6 +62,9 @@ class ContentSecurityPolicyParser {
   }
 
   set(directive, sources = null) {
+    if (!directive) {
+      throw TypeError(`directive: ${directive}`);
+    }
     if (sources === null) {
       this.directives[directive] = null;
       return;
@@ -75,6 +84,9 @@ class ContentSecurityPolicyParser {
   }
 
   add_source(directive, sources) {
+    if (!directive) {
+      throw TypeError(`directive: ${directive}`);
+    }
     if (!this.directives.hasOwnProperty(directive)) {
       if (!sources) {
         this.directives[directive] = null;
@@ -91,6 +103,9 @@ class ContentSecurityPolicyParser {
   }
 
   remove_source(directive, sources) {
+    if (!directive) {
+      throw TypeError(`directive: ${directive}`);
+    }
     if (!this.directives.hasOwnProperty(directive)) {
       return;
     }

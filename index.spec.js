@@ -15,6 +15,10 @@ describe('ContentSecurityPolicyParser', () => {
     expect(new ContentSecurityPolicyParser().toString()).toBe('');
   });
 
+  it('get() should throw TypeError', () => {
+    expect(() => { new ContentSecurityPolicyParser(defaultHeader).get() }).toThrow(TypeError);
+  });
+
   it('get(directive) should return expected sources', () => {
     const directive = 'default-src';
     const sources = ["'self'"];
@@ -25,6 +29,10 @@ describe('ContentSecurityPolicyParser', () => {
     const directive = 'my-src';
     const sources = null;
     expect(new ContentSecurityPolicyParser(defaultHeader).get(directive)).toBe(sources);
+  });
+
+  it('remove() should throw TypeError', () => {
+    expect(() => { new ContentSecurityPolicyParser(defaultHeader).remove() }).toThrow(TypeError);
   });
 
   it('after remove(directive) directive should be missing', () => {
@@ -41,6 +49,10 @@ describe('ContentSecurityPolicyParser', () => {
     const directive = 'my-src';
     updatedPolicy.remove(directive);
     expect(updatedPolicy).toStrictEqual(originalPolicy);
+  });
+
+  it('set() should throw TypeError', () => {
+    expect(() => { new ContentSecurityPolicyParser(defaultHeader).set() }).toThrow(TypeError);
   });
 
   it('after set(directive, sources_as_array), get(directive) should return expected sources', () => {
@@ -105,6 +117,10 @@ describe('ContentSecurityPolicyParser', () => {
     const sources = "'self'";
     policy.set(directive, sources);
     expect(policy.get(directive)).toStrictEqual([sources]);
+  });
+
+  it('remove_source() should throw TypeError', () => {
+    expect(() => { new ContentSecurityPolicyParser(defaultHeader).remove_source() }).toThrow(TypeError);
   });
 
   it('after remove_source(missing_directive, source), policy should be unchanged', () => {
